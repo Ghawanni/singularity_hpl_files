@@ -1,0 +1,24 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%files
+	"/home/x_ghawanm/Make.ubuntu" /usr
+	"/home/x_ghawanm/HPL_ubuntu.dat" /usr
+
+%post
+
+	apt-get -y update
+	apt-get -y install build-essential emacs
+	apt install -y libopenmpi-dev
+	apt install -y openssh-server
+	apt-get install -y libatlas-base-dev gfortran
+	wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
+	tar xf hpl-2.3.tar.gz
+	mv hpl-2.3 /hpl
+	mv /usr/Make.ubuntu /hpl
+	cd /hpl && make arch=ubuntu
+	mv /usr/HPL_ubuntu.dat /hpl/bin/ubuntu/HPL.dat	
+	
+%startscript
+	mpirun -np 4 --allow-run-as-root ./xhpl
+	
