@@ -175,7 +175,7 @@ CCFLAGS  = $(HPL_DEFS)
 # the Fortran internals used in the BLAS library.
 #
 LINKER       = mpif77
-LINKFLAGS    = $(CCFLAGS) $(OMP_DEFS) -mt_mpi
+LINKFLAGS    =
 #
 ARCHIVER     = ar
 ARFLAGS      = r
