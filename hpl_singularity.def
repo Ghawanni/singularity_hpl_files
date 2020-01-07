@@ -3,7 +3,7 @@ From: ubuntu:18.04
 
 %post
         apt-get -y update
-        apt-get -y install build-essential emacs
+        apt-get -y install build-essential vim
         apt install -y libopenmpi-dev
         apt install -y openssh-server
         apt-get install -y libatlas-base-dev gfortran
