@@ -17,4 +17,4 @@ From: ubuntu:18.04
         mv /HPL.dat /hpl/bin/ubuntu/HPL.dat
 
 %startscript
-        mpirun -np 4 --allow-run-as-root ./xhpl
+        mpirun -np 64 --allow-run-as-root ./xhpl
