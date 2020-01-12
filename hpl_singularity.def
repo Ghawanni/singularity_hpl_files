@@ -11,18 +11,18 @@ From: ubuntu:18.04
         ./configure --prefix="/home/$USER/.openmpi"
         make
         make install
-        export PATH="$PATH:/home/$USER/.openmpi/bin"
-        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/$USER/.openmpi/lib/"
+        export PATH="$PATH:/home/.openmpi/bin"
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/.openmpi/lib/"
 
-        wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz -P /
-        cd /
-        tar xf /hpl-2.3.tar.gz
-        wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/HPL.dat -P /
-        wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/Make.ubuntu -P /
-        mv /hpl-2.3 /hpl
-        mv /Make.ubuntu /hpl
+        cd ~
+        wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
+        tar xf hpl-2.3.tar.gz
+        wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/HPL.dat
+        wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/Make.ubuntu
+        mv ~/hpl-2.3 /hpl
+        mv ~/Make.ubuntu /hpl
         cd /hpl && make arch=ubuntu
-        mv /HPL.dat /hpl/bin/ubuntu/HPL.dat
+        mv ~/HPL.dat /hpl/bin/ubuntu/HPL.dat
 
 %environment
 
