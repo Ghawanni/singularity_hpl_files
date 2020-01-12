@@ -3,12 +3,20 @@ From: ubuntu:18.04
 
 %post
         apt-get -y update
-        apt-get -y install build-essential vim
-        apt install -y libopenmpi-dev=2.1.1-8
-        apt install -y openssh-server
-        apt-get install -y libatlas-base-dev gfortran
+        apt-get -y install build-essential gcc g++ vim wget libatlas-base-dev gfortran openssh-server
+
+        wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.0.tar.gz
+        tar -xvf openmpi-*
+        cd openmpi*
+        ./configure --prefix="/home/$USER/.openmpi"
+        make
+        make install
+        export PATH="$PATH:/home/$USER/.openmpi/bin"
+        export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/$USER/.openmpi/lib/"
+
         wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz -P /
-        tar xf hpl-2.3.tar.gz
+        cd /
+        tar xf /hpl-2.3.tar.gz
         wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/HPL.dat -P /
         wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/Make.ubuntu -P /
         mv /hpl-2.3 /hpl
@@ -16,5 +24,7 @@ From: ubuntu:18.04
         cd /hpl && make arch=ubuntu
         mv /HPL.dat /hpl/bin/ubuntu/HPL.dat
 
+%environment
+
 %startscript
-        mpirun -np 64 --allow-run-as-root /hpl/bin/ubuntu/xhpl
+        #mpirun -np 64 --allow-run-as-root /hpl/bin/ubuntu/xhpl
