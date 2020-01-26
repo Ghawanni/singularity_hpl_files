@@ -10,7 +10,7 @@ mkdir /software /build
 cd /build
 wget http://www.mpich.org/static/downloads/3.1.4/mpich-3.1.4.tar.gz
 tar xvf mpich-3.1.4.tar.gz
-mpich-3.1.4
+cd mpich-3.1.4
 bash ./configure
 make -j 8 VERBOSE=1
 make install
