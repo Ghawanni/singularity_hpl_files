@@ -22,7 +22,7 @@ mkdir /hpl
 cd /hpl
 wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
 tar xvf hpl-2.3.tar.gz -C /hpl --strip-component=1
-cp ~/Make.ubuntu /hpl
+cp /scratch/x_ghawanm/singularity_hpl_files/Make.ubuntu /hpl
 make arch=ubuntu
-cp ~/HPL.dat /hpl/bin/ubuntu
+cp /scratch/x_ghawanm/singularity_hpl_files/HPL.dat /hpl/bin/ubuntu
 
