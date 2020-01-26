@@ -17,7 +17,7 @@ make install
 cd /
 rm -rf /build
 ldconfig
-source LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:${LD_LIBRARY_PATH}"
+echo 'export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:${LD_LIBRARY_PATH}' >>$SINGULARITY_ENVIRONMENT
 mkdir /hpl
 cd /hpl
 wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
