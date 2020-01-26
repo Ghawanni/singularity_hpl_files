@@ -6,7 +6,7 @@ apt-get update
 apt-get install --yes wget vim sudo build-essential gfortran libatlas-base-dev
 
 # Building MPICH3
-RUN mkdir /software /build
+mkdir /software /build
 cd /build
 wget http://www.mpich.org/static/downloads/3.1.4/mpich-3.1.4.tar.gz
 tar xvf mpich-3.1.4.tar.gz
