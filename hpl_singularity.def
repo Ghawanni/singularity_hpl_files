@@ -2,29 +2,27 @@ Bootstrap: docker
 From: ubuntu:18.04
 
 %post
-        apt-get -y update
-        apt-get -y install build-essential gcc g++ vim wget libatlas-base-dev gfortran openssh-server
+apt-get update
+apt-get install --yes wget vim sudo build-essential gfortran libatlas-base-dev
 
-	wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.0.tar.gz
-	tar -xvf openmpi-*
-	cd openmpi*
-	./configure --prefix="/home/$USER/.openmpi"
-	make
-	make install
-	export PATH="$PATH:/home/$USER/.openmpi/bin"
-	export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/$USER/.openmpi/lib/"
+# Building MPICH3
+RUN mkdir /software /build
+cd /build
+wget http://www.mpich.org/static/downloads/3.1.4/mpich-3.1.4.tar.gz
+tar xvf mpich-3.1.4.tar.gz
+mpich-3.1.4
+bash ./configure
+make -j 8 VERBOSE=1
+make install
+cd /
+rm -rf /build
+ldconfig
+source LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:${LD_LIBRARY_PATH}"
+mkdir /hpl
+cd /hpl
+wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
+tar xvf hpl-2.3.tar.gz -C /hpl --strip-component=1
+cp ~/Make.ubuntu /hpl
+make arch=ubuntu
+cp ~/HPL.dat /hpl/bin/ubuntu
 
-	cd ~
-	wget http://www.netlib.org/benchmark/hpl/hpl-2.3.tar.gz
-	tar xf hpl-2.3.tar.gz
-        wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/HPL.dat
-        wget https://raw.githubusercontent.com/MohammedGhawanni/singularity_hpl_files/master/Make.ubuntu
-        mv ~/hpl-2.3 /hpl
-        mv ~/Make.ubuntu /hpl
-        cd /hpl && make arch=ubuntu
-        mv ~/HPL.dat /hpl/bin/ubuntu/HPL.dat
-
-%environment
-
-%startscript
-        #mpirun -np 64 --allow-run-as-root /hpl/bin/ubuntu/xhpl
